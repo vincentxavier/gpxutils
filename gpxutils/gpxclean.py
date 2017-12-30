@@ -152,6 +152,9 @@ def gpxclean(input, **options):
                         if point.distance_2d(previous_point) > options['split']:
                             # Start new segment
                             new_segment = writeAndCreateNewFile(new_segment, input.stem, current_track_name, **options)
+                        if point.time - previous_point.time > timedelta(0,60):
+                            # Start new segment
+                            new_segment = writeAndCreateNewFile(new_segment, input.stem, current_track_name, **options)
                             
                     previous_point = point
                     new_segment.points.append(point)
